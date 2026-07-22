@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creating a Finance Referral — Module 3 | RESINC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0A3542;--navy2:#071F28;
+  --sky:#00AEEF;--sky2:#0090C4;--sky-lt:#EAF6FD;--sky-bg:#F2FAFF;
+  --green:#0B7A4E;--green-lt:#E3F5EC;
+  --orange:#D4620A;--orange-lt:#FEF3EB;
+  --red:#B5251B;--red-lt:#FDECEB;
+  --gold:#C9963F;--gold-lt:#FDF6E8;
+  --purple:#6B4FBB;--purple-lt:#F0ECFC;
+  --body:#1A2A32;--muted:#5A6E78;--light:#F4F8FB;
+  --border:#C8DDE8;--line:#E2EEF4;
+  --font:'DM Sans',system-ui,sans-serif;
+  --serif:'DM Serif Display',Georgia,serif;
+  --shadow:0 1px 3px rgba(10,53,66,.06),0 4px 12px rgba(10,53,66,.08);
+  --shadow-lg:0 4px 16px rgba(10,53,66,.1),0 12px 32px rgba(10,53,66,.1);
+  --max:820px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--light);color:var(--body);line-height:1.6;}
+
+#progress-bar{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(0,174,239,.15);z-index:100;}
+#progress-fill{height:100%;background:var(--sky);width:0%;transition:width .3s ease;}
+
+section{padding:52px 20px;}
+.inner{max-width:var(--max);margin:0 auto;}
+.eyebrow{font-size:9.5px;letter-spacing:.26em;font-weight:700;color:var(--sky);margin-bottom:9px;opacity:.9;}
+.s-title{font-size:29px;font-weight:700;color:var(--navy);line-height:1.18;margin-bottom:7px;font-family:var(--serif);}
+.s-sub{font-size:14.5px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
+.s-bar{width:44px;height:3px;background:var(--sky);border-radius:2px;margin-bottom:24px;}
+.sep{height:1px;background:var(--line);max-width:var(--max);margin:0 auto;}
+
+/* ══ HERO ══ */
+#hero{background:var(--navy);padding:64px 20px 56px;position:relative;overflow:hidden;}
+.hero-deco{position:absolute;border-radius:50%;border:1px solid rgba(0,174,239,.08);pointer-events:none;}
+.hero-stripe{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sky);}
+.hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1;}
+.hero-eyebrow{color:var(--sky);font-size:10px;letter-spacing:.28em;font-weight:700;margin-bottom:16px;opacity:.92;}
+.hero-title{color:#fff;font-size:clamp(32px,6vw,46px);font-weight:700;line-height:1.1;margin-bottom:14px;font-family:var(--serif);}
+.hero-sub{color:rgba(255,255,255,.62);font-size:15.5px;line-height:1.7;max-width:560px;}
+.hero-scroll{display:flex;align-items:center;gap:8px;color:rgba(0,174,239,.55);font-size:11px;font-weight:600;letter-spacing:.08em;margin-top:26px;}
+.scroll-dot{width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,174,239,.3);display:flex;align-items:center;justify-content:center;font-size:11px;animation:bob 2s infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══ STATS ══ */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;}
+.i-stat{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 18px;text-align:center;box-shadow:var(--shadow);}
+.i-stat-n{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--sky);line-height:1;margin-bottom:6px;}
+.i-stat-l{font-size:12px;color:var(--muted);line-height:1.4;}
+
+/* ══ BODY CARD (plain text sections) ══ */
+.body-card{background:#fff;border-radius:14px;padding:20px 22px;border-left:4px solid var(--sky);box-shadow:var(--shadow);font-size:14.5px;line-height:1.75;color:#2A3E48;}
+
+/* ══ PULL QUOTE / CALLOUT ══ */
+.pull-quote{background:var(--navy);border-radius:14px;padding:22px 26px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;}
+.pull-quote::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--sky);}
+.pull-quote-eye{color:var(--sky);font-size:9.5px;letter-spacing:.2em;font-weight:700;margin-bottom:10px;padding-left:14px;}
+.pull-quote-text{color:#fff;font-size:17px;font-weight:500;line-height:1.6;padding-left:14px;font-family:var(--serif);font-style:italic;}
+
+/* ══ EXPANDABLE STEPS ══ */
+.step-list{display:flex;flex-direction:column;}
+.step{display:flex;cursor:pointer;}
+.step-left{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;}
+.step-circle{width:36px;height:36px;border-radius:50%;background:var(--sky-lt);border:2px solid #B5D4F4;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--sky2);flex-shrink:0;transition:all .2s;font-family:var(--font);}
+.step.done .step-circle{background:var(--navy);border-color:var(--navy);color:var(--sky);}
+.step-line{width:2px;background:var(--line);flex:1;min-height:18px;}
+.step:last-child .step-line{display:none;}
+.step-right{flex:1;padding:0 0 22px 14px;}
+.step-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px;padding-top:6px;}
+.step-meta{font-size:12.5px;color:#8899AA;font-weight:600;}
+.step-detail{margin-top:10px;background:var(--light);border:1px solid var(--line);border-radius:10px;padding:13px 15px;font-size:14px;color:#3D4A57;line-height:1.65;display:none;}
+.step-detail.open{display:block;animation:fadeUp .25s ease;}
+
+/* ══ EXPANDABLE CARDS (finance partners etc.) ══ */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.card{border:1.5px solid var(--line);border-radius:14px;padding:1.15rem;cursor:pointer;transition:all .18s;background:#fff;box-shadow:var(--shadow);}
+.card:hover{border-color:var(--sky);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.card.active{border-color:var(--sky);background:var(--sky-bg);}
+.card-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:18px;}
+.card-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.card-title{font-size:12.5px;color:var(--muted);font-weight:500;}
+.card-detail{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:14px;color:#3D4A57;line-height:1.6;display:none;}
+.card-detail.open{display:block;animation:fadeUp .25s ease;}
+
+/* ══ RULES LIST ══ */
+.rules{display:flex;flex-direction:column;gap:9px;}
+.rule-item{display:flex;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;align-items:flex-start;box-shadow:var(--shadow);}
+.rule-n{width:26px;height:26px;border-radius:8px;background:var(--sky-lt);color:var(--sky2);font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.rule-t{font-size:14.5px;color:#334155;line-height:1.6;}
+
+/* ══ RISK CARDS ══ */
+.risk-cards{display:flex;flex-direction:column;gap:10px;}
+.risk-card{display:flex;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:15px 17px;box-shadow:var(--shadow);}
+.risk-bar{width:5px;border-radius:4px;flex-shrink:0;}
+.risk-bar.sev-h{background:var(--red);}
+.risk-bar.sev-m{background:var(--orange);}
+.risk-bar.sev-l{background:var(--green);}
+.risk-body{flex:1;}
+.risk-top{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.risk-title{font-size:15px;font-weight:700;color:var(--navy);}
+.sev{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;letter-spacing:.3px;}
+.sev-h{background:var(--red-lt);color:#8F1E17;}
+.sev-m{background:var(--orange-lt);color:#A34F09;}
+.sev-l{background:var(--green-lt);color:#0A5C3B;}
+.risk-how{font-size:14px;color:#475569;line-height:1.6;}
+
+/* ══ ESCALATION ══ */
+.escalate{display:flex;flex-direction:column;gap:9px;}
+.esc-item{display:flex;gap:12px;background:var(--red-lt);border:1px solid #F5C6C4;border-radius:12px;padding:12px 15px;align-items:flex-start;}
+.esc-icon{flex-shrink:0;margin-top:2px;}
+.esc-text{font-size:14px;color:#7A1F1A;line-height:1.55;}
+
+/* ══ FLOW (icon circles + arrows), matching the HowSolarWorks pattern ══ */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:20px;flex-wrap:wrap;padding:4px 0;}
+.flow-step{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:110px;}
+.flow-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;font-family:var(--serif);box-shadow:var(--shadow);transition:transform .2s;background:var(--navy);color:var(--sky);}
+.flow-label{font-size:12.5px;font-weight:700;color:var(--navy);text-align:center;}
+.flow-arrow{font-size:18px;color:var(--border);margin:0 2px;flex-shrink:0;align-self:center;margin-bottom:26px;}
+
+/* ══ INTERACTIVE: LOAN AMOUNT SLIDER ══ */
+.viz-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);}
+.viz-inner{padding:22px 24px;}
+.viz-amount-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;}
+.viz-amount-label{font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;}
+.viz-amount-val{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--sky);}
+input[type=range].viz-slider{width:100%;appearance:none;height:7px;background:var(--line);border-radius:4px;outline:none;cursor:pointer;margin:10px 0 4px;}
+input[type=range].viz-slider::-webkit-slider-thumb{appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2),0 0 0 3px var(--sky);transition:transform .15s;}
+input[type=range].viz-slider::-webkit-slider-thumb:hover{transform:scale(1.12);}
+input[type=range].viz-slider::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--sky);cursor:pointer;}
+.viz-tick-row{display:flex;justify-content:space-between;margin-bottom:18px;}
+.viz-tick{font-size:10.5px;color:var(--muted);}
+.viz-partner-row{display:flex;flex-direction:column;gap:10px;}
+.viz-partner{display:flex;align-items:center;gap:14px;background:var(--light);border-radius:12px;padding:12px 16px;border:2px solid transparent;transition:all .25s;opacity:.4;}
+.viz-partner.fits{opacity:1;border-color:var(--green);background:var(--green-lt);}
+.viz-partner.fits.warn{border-color:var(--orange);background:var(--orange-lt);}
+.viz-partner-icon{font-size:22px;flex-shrink:0;width:36px;text-align:center;}
+.viz-partner-name{font-size:14px;font-weight:700;color:var(--navy);}
+.viz-partner-note{font-size:12px;color:var(--muted);}
+.viz-partner-status{margin-left:auto;font-size:18px;flex-shrink:0;}
+
+/* ══ INTERACTIVE: DISCOUNT CALCULATOR ══ */
+.calc-toggle-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.calc-toggle{flex:1;min-width:130px;padding:11px 14px;border-radius:10px;border:2px solid var(--line);background:#fff;font-family:var(--font);font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .18s;text-align:center;}
+.calc-toggle.active{border-color:var(--sky);background:var(--sky-bg);color:var(--sky2);}
+.calc-verdict{border-radius:14px;padding:20px 22px;text-align:center;transition:all .3s;}
+.calc-verdict.ok{background:var(--green-lt);border:2px solid #6EE7B7;}
+.calc-verdict.no{background:var(--red-lt);border:2px solid #FECACA;}
+.calc-verdict-icon{font-size:32px;margin-bottom:8px;}
+.calc-verdict-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:6px;}
+.calc-verdict.ok .calc-verdict-title{color:#065F46;}
+.calc-verdict.no .calc-verdict-title{color:#991B1B;}
+.calc-verdict-sub{font-size:13.5px;line-height:1.55;}
+.calc-verdict.ok .calc-verdict-sub{color:#0A5C3B;}
+.calc-verdict.no .calc-verdict-sub{color:#7A1F1A;}
+.calc-cap-bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:16px 0 6px;position:relative;}
+.calc-cap-fill{height:100%;border-radius:6px;transition:width .3s,background .3s;}
+.calc-cap-marker{position:absolute;top:-4px;width:2px;height:18px;background:var(--navy);}
+.calc-cap-labels{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);}
+
+/* ══ INTERACTIVE: TIMELINE SLIDER (collections) ══ */
+.tl-scene{background:var(--navy);border-radius:14px;padding:24px;margin-bottom:18px;min-height:110px;display:flex;flex-direction:column;justify-content:center;}
+.tl-day-label{color:var(--sky);font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:8px;}
+.tl-status{color:#fff;font-size:14.5px;line-height:1.6;}
+.tl-status strong{color:var(--sky);}
+.tl-icons{display:flex;gap:10px;margin-top:14px;}
+.tl-icon{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:17px;opacity:.3;transition:all .3s;}
+.tl-icon.active{opacity:1;background:var(--sky);transform:scale(1.08);}
+
+/* ══ INTERACTIVE: DECISION SIMULATOR ══ */
+.sim-toggles{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.sim-toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--light);border-radius:12px;padding:12px 16px;}
+.sim-toggle-label{font-size:14px;font-weight:600;color:var(--navy);}
+.sim-switch{display:flex;border-radius:8px;overflow:hidden;border:1.5px solid var(--line);}
+.sim-switch button{border:none;background:#fff;padding:7px 16px;font-family:var(--font);font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;}
+.sim-switch button.active{background:var(--sky);color:#fff;}
+.sim-verdict{border-radius:14px;padding:22px;text-align:center;transition:all .3s;}
+.sim-verdict.retention{background:var(--green-lt);border:2px solid #6EE7B7;}
+.sim-verdict.lost{background:var(--red-lt);border:2px solid #FECACA;}
+.sim-verdict-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px;}
+.sim-verdict.retention .sim-verdict-title{color:#065F46;}
+.sim-verdict.lost .sim-verdict-title{color:#991B1B;}
+.sim-verdict-sub{font-size:14px;line-height:1.55;}
+.sim-verdict.retention .sim-verdict-sub{color:#0A5C3B;}
+.sim-verdict.lost .sim-verdict-sub{color:#7A1F1A;}
+
+/* ══ RISK GAME (guess-the-severity mini quiz) ══ */
+.rg-counter{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.rg-step{height:5px;border-radius:3px;flex:1;background:var(--line);transition:background .3s;}
+.rg-step.active{background:var(--sky);}
+.rg-step.done-l{background:var(--green);}
+.rg-step.done-m{background:var(--orange);}
+.rg-step.done-h{background:var(--red);}
+.rg-label{font-size:10.5px;color:var(--muted);font-weight:700;white-space:nowrap;}
+.rg-scenario{background:var(--navy);border-radius:14px;padding:20px 22px;margin-bottom:16px;}
+.rg-scenario-eye{color:var(--sky);font-size:10px;letter-spacing:.16em;font-weight:700;margin-bottom:8px;}
+.rg-scenario-text{color:#fff;font-size:16px;font-weight:600;line-height:1.5;font-family:var(--serif);}
+.rg-btns{display:flex;gap:8px;margin-bottom:14px;}
+.rg-btn{flex:1;padding:16px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;text-align:center;}
+.rg-btn.l{color:#15803D;}
+.rg-btn.m{color:#B45309;}
+.rg-btn.h{color:#B91C1C;}
+.rg-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow);}
+.rg-btn:disabled{cursor:default;}
+.rg-btn.correct-pick{border-width:3px;}
+.rg-btn.correct-pick.l{border-color:var(--green);background:var(--green-lt);}
+.rg-btn.correct-pick.m{border-color:var(--orange);background:var(--orange-lt);}
+.rg-btn.correct-pick.h{border-color:var(--red);background:var(--red-lt);}
+.rg-btn.wrong-pick{opacity:.35;}
+.rg-fb{border-radius:12px;padding:15px 18px;font-size:14px;line-height:1.6;display:none;margin-bottom:12px;}
+.rg-fb.show{display:block;animation:fadeUp .25s ease;}
+.rg-fb-icon{font-weight:700;margin-right:6px;}
+.rg-next-btn{background:var(--sky);color:#fff;border:none;border-radius:10px;padding:11px 26px;font-family:var(--font);font-size:13.5px;font-weight:700;cursor:pointer;display:none;}
+.rg-next-btn.show{display:inline-block;}
+.rg-done{display:none;text-align:center;padding:20px;}
+.rg-done.show{display:block;}
+.rg-done-icon{font-size:36px;margin-bottom:8px;}
+.rg-done-text{font-family:var(--serif);font-size:19px;color:var(--navy);font-weight:700;}
+
+/* ══ SPOT CHECK (interactive worked example, true/false) ══ */
+.sc-mock{background:var(--light);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px;font-family:'Courier New',monospace;}
+.sc-mock-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;color:#334155;border-bottom:1px dashed var(--border);}
+.sc-mock-row:last-child{border-bottom:none;}
+.sc-mock-row.flag{background:rgba(255,251,235,.7);margin:0 -18px;padding:8px 18px;border-bottom:none;border-radius:6px;}
+.sc-mock-label{color:var(--muted);}
+.sc-mock-val{font-weight:700;color:var(--navy);}
+.sc-question{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;text-align:center;}
+.sc-btns{display:flex;gap:10px;justify-content:center;margin-bottom:14px;}
+.sc-btn{padding:11px 30px;border-radius:10px;border:2px solid var(--line);background:#fff;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .18s;}
+.sc-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow);}
+.sc-btn:disabled{cursor:default;}
+.sc-btn.correct-pick{border-color:var(--green);background:var(--green-lt);color:#065F46;}
+.sc-btn.wrong-pick{border-color:var(--red);background:var(--red-lt);color:#991B1B;opacity:.7;}
+.sc-fb{border-radius:12px;padding:16px 18px;font-size:14px;line-height:1.65;display:none;}
+.sc-fb.show{display:block;animation:fadeUp .25s ease;}
+.sc-fb.good{background:var(--green-lt);border-left:4px solid var(--green);color:#0A4425;}
+.sc-fb.bad{background:var(--red-lt);border-left:4px solid var(--red);color:#7A1010;}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.compare-card{border-radius:14px;padding:1.15rem 1.25rem;box-shadow:var(--shadow);}
+.compare-tag{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.compare-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.compare-body{font-size:14px;line-height:1.55;}
+
+/* ══ PARTNER TABS (interactive tab switcher) ══ */
+.tabs-nav{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.tab-btn{flex:1;min-width:110px;display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 14px;border-radius:11px;border:1.5px solid var(--line);background:#fff;font-family:var(--font);font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .18s;}
+.tab-btn.active{border-color:var(--sky);background:var(--navy);color:#fff;box-shadow:var(--shadow);}
+.tab-panel{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);animation:fadeUp .25s ease;}
+.tab-panel-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.tab-panel-emoji{font-size:24px;}
+.tab-panel-title{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--navy);}
+.tab-panel ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.tab-panel li{display:flex;gap:10px;font-size:14.5px;color:#334155;line-height:1.6;}
+.tab-panel li::before{content:'\2192';color:var(--sky);font-weight:700;flex-shrink:0;}
+
+/* ══ ORDER GAME (click-to-sequence exercise) ══ */
+.og-wrap{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow-lg);}
+.og-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.og-slot{display:flex;align-items:center;gap:12px;min-height:52px;border:2px dashed var(--border);border-radius:11px;padding:10px 16px;background:var(--light);transition:all .2s;}
+.og-slot.filled{border-style:solid;background:#fff;}
+.og-slot.correct{border-color:var(--green);background:var(--green-lt);}
+.og-slot.wrong{border-color:var(--red);background:var(--red-lt);}
+.og-slot-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font);}
+.og-slot-text{font-size:14.5px;font-weight:600;color:var(--navy);}
+.og-slot-placeholder{font-size:13px;color:var(--muted);font-style:italic;}
+.og-pool{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px;}
+.og-chip{padding:11px 16px;border-radius:10px;border:1.5px solid var(--line);background:var(--sky-bg);color:var(--navy);font-family:var(--font);font-size:13.5px;font-weight:700;cursor:pointer;transition:all .18s;}
+.og-chip:hover{border-color:var(--sky);transform:translateY(-2px);}
+.og-chip.used{opacity:0;pointer-events:none;position:absolute;}
+.og-result{display:none;border-radius:12px;padding:14px 18px;font-size:14px;line-height:1.6;margin-top:6px;}
+.og-result.show{display:block;animation:fadeUp .25s ease;}
+.og-result.good{background:var(--green-lt);color:#065F46;}
+.og-result.bad{background:var(--red-lt);color:#991B1B;}
+.og-reset-btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:9px 20px;font-family:var(--font);font-size:12.5px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.og-reset-btn.show{display:inline-block;}
+
+/* ══ GATE SIMULATOR (mirrors the real Plenti send-link gate) ══ */
+.gate-mock{background:var(--navy);border-radius:16px;padding:24px 26px;box-shadow:var(--shadow-lg);}
+.gate-title{color:#fff;font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:16px;}
+.gate-check-row{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:11px;padding:13px 16px;margin-bottom:10px;cursor:pointer;transition:all .18s;}
+.gate-check-row:hover{background:rgba(255,255,255,.1);}
+.gate-check-row.checked{border-color:var(--sky);background:rgba(0,174,239,.12);}
+.gate-checkbox{width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.35);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:13px;color:transparent;transition:all .15s;}
+.gate-check-row.checked .gate-checkbox{background:var(--sky);border-color:var(--sky);color:#fff;}
+.gate-check-text{color:rgba(255,255,255,.82);font-size:14px;line-height:1.5;}
+.gate-btn-row{display:flex;align-items:center;gap:14px;margin-top:18px;}
+.gate-send-btn{background:rgba(255,255,255,.15);color:rgba(255,255,255,.4);border:none;border-radius:10px;padding:13px 30px;font-family:var(--font);font-size:14.5px;font-weight:700;cursor:not-allowed;transition:all .25s;}
+.gate-send-btn.enabled{background:var(--sky);color:#fff;cursor:pointer;box-shadow:0 4px 18px rgba(0,174,239,.4);}
+.gate-status{color:rgba(255,255,255,.5);font-size:13px;}
+.gate-status.ready{color:var(--sky);font-weight:700;}
+.gate-success{display:none;background:var(--green-lt);border-radius:11px;padding:14px 18px;margin-top:14px;color:#065F46;font-size:14px;font-weight:600;}
+.gate-success.show{display:block;animation:fadeUp .3s ease;}
+
+/* ══ QUIZ ══ */
+.quiz{border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg);}
+.quiz-hdr{background:var(--light);padding:.9rem 1.25rem;font-size:12.5px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.6px;}
+.q{padding:1.3rem 1.3rem;border-bottom:1px solid var(--line);}
+.q:last-child{border-bottom:none;}
+.q-text{font-size:16px;color:var(--navy);font-weight:700;margin-bottom:12px;line-height:1.45;}
+.opt{display:block;width:100%;text-align:left;background:var(--light);border:1.5px solid var(--line);border-radius:10px;padding:12px 15px;margin-bottom:7px;font-size:14.5px;color:var(--navy);cursor:pointer;font-family:inherit;transition:all .15s;}
+.opt:hover:not(:disabled){background:var(--sky-bg);border-color:#B5D4F4;}
+.opt.correct{background:var(--green-lt);border-color:#6EE7B7;color:#065F46;font-weight:700;}
+.opt.wrong{background:var(--red-lt);border-color:#FECACA;color:#991B1B;}
+.opt:disabled{cursor:default;}
+.fb{font-size:14px;margin-top:9px;padding:10px 13px;border-radius:9px;display:none;line-height:1.55;animation:fadeUp .25s ease;}
+.fb.show{display:block;}
+.fb.ok{background:var(--green-lt);color:#065F46;}
+.fb.bad{background:var(--red-lt);color:#991B1B;}
+
+.score-banner{display:none;padding:1.6rem;text-align:center;border-top:2px solid var(--line);}
+.score-banner.show{display:block;animation:fadeUp .3s ease;}
+.score-val{font-family:var(--serif);font-size:42px;font-weight:700;margin-bottom:6px;}
+.score-sub{font-size:15px;margin-bottom:16px;color:var(--muted);}
+.restart-btn{background:var(--sky);color:#fff;border:none;border-radius:10px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:var(--font);box-shadow:0 4px 14px rgba(0,174,239,.3);transition:all .18s;}
+.restart-btn:hover{background:var(--sky2);transform:translateY(-2px);}
+
+/* ══ QUICK REFERENCE ══ */
+.qr-list{display:flex;flex-direction:column;gap:13px;}
+.qr-row{display:flex;gap:12px;align-items:flex-start;}
+.qr-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--sky-lt);color:var(--sky2);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;font-family:var(--font);}
+.qr-text{font-size:15px;color:#334155;line-height:1.6;padding-top:2px;}
+.qr-text strong{color:var(--navy);}
+
+/* ══ ROLEPLAY (chat-bubble decision scenario) ══ */
+.rp-card{background:var(--navy);border-radius:16px;padding:22px 24px;margin-bottom:18px;position:relative;overflow:hidden;}
+.rp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sky);}
+.rp-counter{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.rp-step{height:5px;border-radius:3px;flex:1;background:rgba(255,255,255,.15);transition:background .4s;}
+.rp-step.active{background:var(--sky);}
+.rp-step.done{background:var(--sky);opacity:.5;}
+.rp-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:700;white-space:nowrap;}
+.rp-chat{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;}
+.rp-bubble-wrap{display:flex;gap:10px;align-items:flex-start;}
+.rp-bubble-wrap.you{flex-direction:row-reverse;}
+.rp-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
+.rp-avatar.cust{background:rgba(255,255,255,.1);color:var(--sky);}
+.rp-avatar.you{background:var(--sky);color:#fff;}
+.rp-bubble{border-radius:13px;padding:11px 14px;max-width:80%;font-size:13.5px;line-height:1.6;}
+.rp-bubble.customer{background:rgba(255,255,255,.08);color:#fff;border-radius:4px 13px 13px 13px;}
+.rp-bubble.you{background:var(--sky);color:#fff;border-radius:13px 4px 13px 13px;}
+.rp-bubble.you.bad{background:rgba(255,255,255,.2);}
+.rp-bubble-name{font-size:9.5px;font-weight:700;letter-spacing:.08em;margin-bottom:4px;opacity:.6;}
+.rp-options-label{font-size:10px;font-weight:700;color:var(--sky);letter-spacing:.14em;margin-bottom:10px;}
+.rp-options{display:flex;flex-direction:column;gap:9px;margin-bottom:14px;}
+.rp-opt{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-radius:11px;border:1.5px solid var(--line);background:#fff;cursor:pointer;transition:all .2s;text-align:left;font-family:var(--font);}
+.rp-opt:hover:not(:disabled){border-color:var(--sky);background:var(--sky-bg);}
+.rp-opt:disabled{pointer-events:none;}
+.rp-opt-letter{width:22px;height:22px;border-radius:6px;background:var(--line);color:var(--muted);font-size:11px;font-weight:700;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.rp-opt.good{border-color:#6EE7B7;background:var(--green-lt);}
+.rp-opt.good .rp-opt-letter{background:var(--green);color:#fff;}
+.rp-opt.bad{border-color:#FECACA;background:var(--red-lt);}
+.rp-opt.bad .rp-opt-letter{background:var(--red);color:#fff;}
+.rp-opt.dim{opacity:.35;}
+.rp-opt-text{font-size:13.5px;color:var(--body);line-height:1.5;flex:1;}
+.rp-feedback{border-radius:11px;padding:13px 15px;margin-bottom:12px;font-size:13.5px;line-height:1.6;display:none;}
+.rp-feedback.show{display:block;animation:fadeUp .3s ease;}
+.rp-feedback.good{background:var(--green-lt);border-left:4px solid var(--green);color:#0A4425;}
+.rp-feedback.bad{background:var(--red-lt);border-left:4px solid var(--red);color:#7A1010;}
+.rp-next-btn{background:var(--sky);color:#fff;border:none;border-radius:10px;padding:11px 22px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;display:none;}
+.rp-next-btn.show{display:inline-block;}
+.rp-retry-btn{background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:10px;padding:9px 18px;font-family:var(--font);font-size:12.5px;font-weight:700;cursor:pointer;margin-left:8px;display:none;}
+.rp-retry-btn.show{display:inline-block;}
+.rp-success{display:none;background:var(--navy);border-radius:16px;padding:28px;text-align:center;}
+.rp-success.show{display:block;animation:fadeUp .4s ease;}
+.rp-success-icon{font-size:44px;margin-bottom:10px;}
+.rp-success-title{color:#fff;font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:8px;}
+.rp-success-sub{color:rgba(255,255,255,.6);font-size:13.5px;line-height:1.6;}
+#complete{background:var(--navy2);padding:56px 20px;text-align:center;}
+.cpl-inner{max-width:520px;margin:0 auto;}
+.cpl-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);border-radius:30px;padding:7px 18px;margin-bottom:18px;font-size:11.5px;font-weight:700;color:#fff;letter-spacing:.06em;}
+.cpl-title{color:#fff;font-size:32px;font-weight:700;margin-bottom:10px;font-family:var(--serif);}
+.cpl-title em{color:var(--sky);font-style:italic;}
+.cpl-body{color:rgba(255,255,255,.6);font-size:14.5px;line-height:1.7;margin-bottom:24px;}
+.cpl-next{background:rgba(0,174,239,.12);border:1.5px solid rgba(0,174,239,.25);border-radius:12px;padding:14px 22px;}
+.cpl-next-label{font-size:9px;color:rgba(0,174,239,.65);letter-spacing:.2em;font-weight:700;margin-bottom:4px;}
+.cpl-next-text{color:#fff;font-size:13.5px;font-weight:600;}
+</style>
+</head>
+<body>
+<div id="progress-bar"><div id="progress-fill"></div></div>
+<section id="hero">
+    <div class="hero-deco" style="width:380px;height:380px;right:-100px;top:-100px;"></div>
+    <div class="hero-deco" style="width:220px;height:220px;right:20px;top:30px;"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">FINANCE PROCESS TRAINING · MODULE 3 OF 7</div>
+      <div class="hero-title">Creating a Finance Referral</div>
+      <div class="hero-sub">Sales reps usually create referrals themselves — here's exactly what to do on the occasions you need to create or recreate one, including the specific fields each finance partner asks for.</div>
+      <div class="hero-scroll"><div class="scroll-dot">↓</div> Scroll to work through the module</div>
+    </div>
+  </section>
+<section style="background:#fff;"><div class="inner">
+      <div class="eyebrow">BY THE NUMBERS</div>
+      <div class="s-title">Before we dive in</div>
+      <div class="s-bar"></div>
+      <div class="stat-row"><div class="i-stat"><div class="i-stat-n">4</div><div class="i-stat-l">Steps from confirming product to SMS-ing the customer</div></div><div class="i-stat"><div class="i-stat-n">6</div><div class="i-stat-l">Fields on the (surprisingly short) Plenti form</div></div><div class="i-stat"><div class="i-stat-n">90</div><div class="i-stat-l">Days — the maximum quote expiry you should ever set</div></div></div></div></section>
+<section style="background:#fff;"><div class="inner">
+<div class="eyebrow">WHEN YOU'LL DO THIS</div><div class="s-title">When you'll do this</div><div style="margin-bottom:14px;"></div><div class="s-bar"></div>
+<div class="body-card">You'll create or recreate a referral in three situations: the sales rep simply hasn't done it yet, an application was declined and needs to move to a different finance company, or — specific to Plenti — an existing application needs to be cancelled and completely rebuilt from scratch because of an error or expiry.</div>
+</div></section>
+<div class="sep"></div>
+<section style="background:var(--light);"><div class="inner">
+<div class="eyebrow">BEFORE YOU START — THREE THINGS TO CONFIRM</div><div class="s-title">Before you start — three things to confirm</div><div style="margin-bottom:14px;"></div><div class="s-bar"></div>
+<div class="rules" id="rules-1"></div>
+</div></section>
+<div class="sep"></div>
+<section style="background:#fff;"><div class="inner">
+<div class="eyebrow">TRY IT — PUT THE REFERRAL PROCESS IN ORDER</div><div class="s-title">Try it — put the referral process in order</div><div class="s-sub">Click the steps below, in the order you'd actually do them.</div><div class="s-bar"></div>
+<div class="og-wrap" id="og-root-2"></div>
+</div></section>
+<div class="sep"></div>
+<section style="background:var(--light);"><div class="inner">
+<div class="eyebrow">THE PLENTI REFERRAL FORM — FIELD BY FIELD</div><div class="s-title">The Plenti referral form — field by field</div><div class="s-sub">This form is much simpler than you'd expect — click each field for detail.</div><div class="s-bar"></div>
+<div class="step-list" id="steps-3"></div>
+</div></section>
+<div class="sep"></div>
+<section style="background:#fff;"><div class="inner">
+<div class="eyebrow">TRY IT — THE SEND LINK GATE</div><div class="s-title">Try it — the Send Link gate</div><div class="s-sub">This is exactly how the Plenti tool behaves — tick both boxes to unlock sending.</div><div class="s-bar"></div>
+<div class="gate-mock" id="gate-root-4"></div>
+</div></section>
+<div class="sep"></div>
+<section style="background:var(--light);"><div class="inner">
+<div class="eyebrow">DON'T FORGET — PLENTI ONLY</div><div class="s-title">Don't forget — Plenti only</div><div style="margin-bottom:14px;"></div><div class="s-bar"></div>
+<div class="pull-quote"><div class="pull-quote-eye">WHY IT MATTERS</div><div class="pull-quote-text">For any Plenti referral, the STC declaration needs to be completed as part of this process. Skip it, and settlement will be held up later, sometimes weeks after the install is already finished — by which point it's much harder to chase down.</div></div>
+</div></section>
+<div class="sep"></div>
+<section style="background:#fff;"><div class="inner">
+<div class="eyebrow">COMMON REFERRAL MISTAKES</div><div class="s-title">Common referral mistakes</div><div class="s-sub">Guess how risky each one really is before you see the answer.</div><div class="s-bar"></div>
+<div id="rg-root-6"></div>
+</div></section>
+<section style="background:#fff;"><div class="inner">
+      <div class="eyebrow">BEFORE THE QUIZ</div>
+      <div class="s-title">Quick reference</div>
+      <div class="s-bar"></div>
+      <div class="qr-list"><div class="qr-row"><div class="qr-num">1</div><div class="qr-text">Always confirm the customer's preferred product from the rep's note before starting.</div></div><div class="qr-row"><div class="qr-num">2</div><div class="qr-text">The Plenti form is short: name, contact, address, system cost/type, sizes, savings estimate, and an eligibility gate.</div></div><div class="qr-row"><div class="qr-num">3</div><div class="qr-text">Set quote expiry to the maximum allowed — typically 90 days.</div></div><div class="qr-row"><div class="qr-num">4</div><div class="qr-text">Plenti referrals need a completed STC declaration or settlement gets held up later.</div></div></div>
+    </div></section>
+<section style="background:var(--light);"><div class="inner">
+    <div class="eyebrow">KNOWLEDGE CHECK</div>
+    <div class="s-title">Before you move on</div>
+    <div class="s-sub">Answer each question — no going back once you've clicked.</div>
+    <div class="s-bar"></div>
+    <div class="quiz">
+      <div class="quiz-hdr">❓ 4 questions</div>
+      <div id="quiz-questions"></div>
+    </div>
+    <div class="score-banner" id="score-banner">
+      <div class="score-val" id="score-val"></div>
+      <div class="score-sub" id="score-sub"></div>
+      <button class="restart-btn" id="restart-btn" style="display:none;">Try Again</button>
+    </div>
+  </div></section>
+
+<script>
+window.addEventListener('scroll', function() {
+  var p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('progress-fill').style.width = Math.min(p, 100) + '%';
+});
+
+var DATA = {"sections":[{"type":"text","icon":"info-circle","title":"When you'll do this","body":"You'll create or recreate a referral in three situations: the sales rep simply hasn't done it yet, an application was declined and needs to move to a different finance company, or — specific to Plenti — an existing application needs to be cancelled and completely rebuilt from scratch because of an error or expiry."},{"type":"rules","icon":"checklist","title":"Before you start — three things to confirm","items":["Confirm which loan or product the customer actually wants. Check the sales rep's note on the potential first — they should have stated the customer's preference when the lead was originally created.","Pull up the order form and the savings estimator — these two documents hold every figure and system detail you'll need for the referral form.","If you're using an interest-free product (Brighte or Plenti), confirm the financed amount is under the $15,000 cap before you start filling anything in."]},{"type":"order-game","title":"Try it — put the referral process in order","sub":"Click the steps below, in the order you'd actually do them.","items":["Confirm product","Fill out form","Submit & upload order form","SMS the customer"]},{"type":"steps","icon":"file-text","title":"The Plenti referral form — field by field","sub":"This form is much simpler than you'd expect — click each field for detail.","items":[{"title":"Client name & contact","meta":"First step on the form","detail":"First name, last name, email address, and mobile number. Straightforward, but double-check the name matches the legal name on file, not just their Zoho contact name."},{"title":"Residential address","meta":"Address search or manual entry","detail":"Use the built-in address search where possible — fall back to manual entry only if the search can't find the property (common for very new builds)."},{"title":"System cost & type","meta":"Total cost + solar/battery toggle","detail":"Enter the total system cost, and toggle whether it's solar, battery, or both. Get this from the order form, not from memory or estimation."},{"title":"Panel & battery size","meta":"kW and kWh","detail":"Enter panel size in kW and battery size in kWh, as applicable to what was actually ordered."},{"title":"Estimated bill savings","meta":"Amount + frequency","detail":"Enter the estimated savings amount and how often it applies (weekly, fortnightly, quarterly), plus tick the confirmation checkbox stating the estimate was explained to the client at the point of sale."},{"title":"Eligibility & disclosure","meta":"The gate before sending","detail":"Confirms the household's taxable income is under $210,000, and that all eligible rebates and incentives have been included in the quote. This is a hard gate — the referral link cannot be sent until both boxes are ticked."}]},{"type":"gate-sim","title":"Try it — the Send Link gate","sub":"This is exactly how the Plenti tool behaves — tick both boxes to unlock sending.","data":{"title":"Home Energy Saver Loan — Eligibility & Disclosure","checks":["I confirm my client's household taxable income does not exceed $210,000.","I have quoted my client including all eligible rebates and incentives available at federal and state level."],"buttonLabel":"Send Link","notReadyText":"Tick both boxes to unlock sending.","readyText":"Ready to send.","successText":"✅ Link sent — the customer will receive their pre-filled application shortly."}},{"type":"quote","icon":"quote","title":"Don't forget — Plenti only","quote":"For any Plenti referral, the STC declaration needs to be completed as part of this process. Skip it, and settlement will be held up later, sometimes weeks after the install is already finished — by which point it's much harder to chase down."},{"type":"risk-game","title":"Common referral mistakes","sub":"Guess how risky each one really is before you see the answer.","items":[{"risk":"Guessing which loan product without checking the rep's note","sev":"m","how":"Always check the sales rep's original note first — the customer's preference should already be documented there."},{"risk":"Setting a short quote expiry date","sev":"l","how":"Always set the maximum allowed — typically 90 days — so the referral doesn't lapse before the customer gets to it."},{"risk":"Forgetting to upload the order form","sev":"l","how":"Not mandatory, but it significantly speeds up the finance company's review — always attach it if you have it handy."},{"risk":"Sending a Plenti link before eligibility boxes are ticked","sev":"m","how":"The system won't actually let you send without them, but double-check both are accurate, not just ticked to get past the gate."}]}],"quiz":[{"q":"Before creating a referral, what should you check first?","opts":[{"text":"The sales rep's note, for the customer's preferred product","correct":true,"feedback":"Correct — always confirm the intended product before doing anything else."},{"text":"Nothing — just pick whichever product is fastest","correct":false,"feedback":"Always confirm which product the customer actually wants first."}]},{"q":"Which of these is NOT part of the Plenti referral form?","opts":[{"text":"NMI (National Meter Identifier)","correct":true,"feedback":"Correct — that's a Brighte-style field. Plenti's form is deliberately simpler."},{"text":"System cost","correct":false,"feedback":"That is part of the Plenti form."},{"text":"Estimated bill savings","correct":false,"feedback":"That is part of the Plenti form."}]},{"q":"What's the maximum quote expiry you should typically set on a referral?","opts":[{"text":"30 days","correct":false,"feedback":"You can generally go longer than that."},{"text":"90 days","correct":true,"feedback":"Correct."}]},{"q":"What must be completed before a Plenti referral link can be sent?","opts":[{"text":"Just the client's contact details","correct":false,"feedback":"There's also an eligibility and disclosure gate to clear."},{"text":"The income cap and rebate-inclusion checkboxes","correct":true,"feedback":"Correct — the system won't let the link send without both."}]}],"roleplay":null};
+var CARD_PALETTE = [
+  { bg: '#EBF5FF', icon: '\uD83C\uDFE6', iconColor: '#185FA5' },
+  { bg: '#F0ECFC', icon: '\u26A1', iconColor: '#6B4FBB' },
+  { bg: '#FDF6E8', icon: '\u2600\uFE0F', iconColor: '#A3760F' },
+  { bg: '#E3F5EC', icon: '\uD83D\uDCAC', iconColor: '#0B7A4E' },
+];
+
+DATA.sections.forEach(function(sec, si) {
+  if (sec.type === 'steps') {
+    var el = document.getElementById('steps-' + si);
+    sec.items.forEach(function(it, i) {
+      var row = document.createElement('div');
+      row.className = 'step';
+      row.innerHTML = '<div class="step-left"><div class="step-circle">' + (i+1) + '</div><div class="step-line"></div></div>' +
+        '<div class="step-right"><div class="step-title">' + it.title + '</div>' + (it.meta ? '<div class="step-meta">' + it.meta + '</div>' : '') +
+        '<div class="step-detail" id="steps-' + si + '-detail-' + i + '">' + it.detail + '</div></div>';
+      row.onclick = function(){ toggleStepDetail(si, i, row); };
+      el.appendChild(row);
+    });
+  }
+  if (sec.type === 'cards') {
+    var elc = document.getElementById('cards-' + si);
+    sec.items.forEach(function(it, i) {
+      var pal = CARD_PALETTE[i % CARD_PALETTE.length];
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = '<div class="card-icon" style="background:' + (it.bg || pal.bg) + '">' + (it.emoji || pal.icon) + '</div>' +
+        '<div class="card-name">' + it.name + '</div><div class="card-title">' + it.title + '</div>' +
+        '<div class="card-detail" id="cards-' + si + '-detail-' + i + '">' + it.detail + '</div>';
+      card.onclick = function(){ toggleCardDetail(si, i, card); };
+      elc.appendChild(card);
+    });
+  }
+  if (sec.type === 'rules') {
+    var elr = document.getElementById('rules-' + si);
+    sec.items.forEach(function(r, i) {
+      var d = document.createElement('div'); d.className = 'rule-item';
+      d.innerHTML = '<div class="rule-n">' + String(i+1).padStart(2,'0') + '</div><div class="rule-t">' + r + '</div>';
+      elr.appendChild(d);
+    });
+  }
+  if (sec.type === 'risks') {
+    var elk = document.getElementById('risks-' + si);
+    sec.items.forEach(function(r) {
+      var sevLabel = r.sev === 'h' ? 'High risk' : (r.sev === 'm' ? 'Medium risk' : 'Low risk');
+      var card = document.createElement('div'); card.className = 'risk-card';
+      card.innerHTML = '<div class="risk-bar sev-' + r.sev + '"></div>' +
+        '<div class="risk-body"><div class="risk-top"><div class="risk-title">' + r.risk + '</div><span class="sev sev-' + r.sev + '">' + sevLabel + '</span></div>' +
+        '<div class="risk-how">' + r.how + '</div></div>';
+      elk.appendChild(card);
+    });
+  }
+  if (sec.type === 'escalate') {
+    var ele = document.getElementById('escalate-' + si);
+    sec.items.forEach(function(e) {
+      var d = document.createElement('div'); d.className = 'esc-item';
+      d.innerHTML = '<div class="esc-icon">\u26A0\uFE0F</div><div class="esc-text">' + e + '</div>';
+      ele.appendChild(d);
+    });
+  }
+  if (sec.type === 'flow') {
+    var elf = document.getElementById('flow-' + si);
+    sec.items.forEach(function(step, i) {
+      var label = (typeof step === 'string') ? step : step.label;
+      var wrap = document.createElement('div'); wrap.className = 'flow-step';
+      wrap.innerHTML = '<div class="flow-icon">' + (i+1) + '</div><div class="flow-label">' + label + '</div>';
+      elf.appendChild(wrap);
+      if (i < sec.items.length - 1) {
+        var arrow = document.createElement('div'); arrow.className = 'flow-arrow'; arrow.textContent = '\u2192';
+        elf.appendChild(arrow);
+      }
+    });
+  }
+  if (sec.type === 'partner-tabs') {
+    var nav = document.getElementById('tabs-nav-' + si);
+    var panel = document.getElementById('tab-panel-' + si);
+    function renderPanel(idx) {
+      var p = sec.items[idx];
+      panel.innerHTML = '<div class="tab-panel-head"><div class="tab-panel-emoji">' + p.emoji + '</div><div class="tab-panel-title">' + p.label + '</div></div><ul>' +
+        p.points.map(function(pt){ return '<li>' + pt + '</li>'; }).join('') + '</ul>';
+    }
+    sec.items.forEach(function(p, i) {
+      var btn = document.createElement('button');
+      btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+      btn.innerHTML = '<span>' + p.emoji + '</span><span>' + p.label + '</span>';
+      btn.onclick = function() {
+        nav.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        renderPanel(i);
+      };
+      nav.appendChild(btn);
+    });
+    renderPanel(0);
+  }
+  if (sec.type === 'risk-game') {
+    (function() {
+      var root = document.getElementById('rg-root-' + si);
+      var items = sec.items;
+      var n = items.length;
+      var idx = 0;
+      var sevLabel = { l: 'Low', m: 'Medium', h: 'High' };
+      function render() {
+        var it = items[idx];
+        var html = '<div class="rg-counter">';
+        for (var i = 0; i < n; i++) {
+          var cls = i < idx ? ('done-' + items[i].sev) : (i === idx ? 'active' : '');
+          html += '<div class="rg-step ' + cls + '"></div>';
+        }
+        html += '<div class="rg-label">' + (idx + 1) + ' of ' + n + '</div></div>';
+        html += '<div class="rg-scenario"><div class="rg-scenario-eye">HOW RISKY IS THIS?</div><div class="rg-scenario-text">' + it.risk + '</div></div>';
+        html += '<div class="rg-btns">' +
+          '<button class="rg-btn l" data-s="l">Low risk</button>' +
+          '<button class="rg-btn m" data-s="m">Medium risk</button>' +
+          '<button class="rg-btn h" data-s="h">High risk</button>' +
+        '</div>';
+        html += '<div class="rg-fb" id="rg-fb-' + si + '"></div>';
+        html += '<button class="rg-next-btn" id="rg-next-' + si + '">' + (idx === n - 1 ? 'Finish \u2192' : 'Next one \u2192') + '</button>';
+        html += '<div class="rg-done" id="rg-done-' + si + '"><div class="rg-done-icon">\uD83C\uDFAF</div><div class="rg-done-text">Nice \u2014 you\'ve got a feel for what\'s risky here.</div></div>';
+        root.innerHTML = html;
+
+        var answered = false;
+        root.querySelectorAll('.rg-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            if (answered) return;
+            answered = true;
+            var chosen = btn.dataset.s;
+            root.querySelectorAll('.rg-btn').forEach(function(b) {
+              b.disabled = true;
+              if (b.dataset.s === it.sev) b.classList.add('correct-pick');
+              else b.classList.add('wrong-pick');
+            });
+            var fb = document.getElementById('rg-fb-' + si);
+            var isRight = chosen === it.sev;
+            fb.className = 'rg-fb show';
+            fb.style.background = isRight ? '#ECFDF5' : '#FFFBEB';
+            fb.innerHTML = '<span class="rg-fb-icon">' + (isRight ? '\u2705' : '\uD83D\uDCA1') + '</span>' +
+              (isRight ? 'Right \u2014 ' : 'Actually ' + sevLabel[it.sev].toLowerCase() + ' risk. ') + it.how;
+            document.getElementById('rg-next-' + si).classList.add('show');
+          });
+        });
+        var nextBtn = document.getElementById('rg-next-' + si);
+        nextBtn.onclick = function() {
+          idx++;
+          if (idx >= n) {
+            root.innerHTML = '<div class="rg-done show"><div class="rg-done-icon">\uD83C\uDFAF</div><div class="rg-done-text">Nice \u2014 you\'ve got a feel for what\'s risky here.</div></div>';
+          } else {
+            render();
+          }
+        };
+      }
+      render();
+    })();
+  }
+  if (sec.type === 'spot-check') {
+    (function() {
+      var root = document.getElementById('sc-root-' + si);
+      var sc = sec.data;
+      var html = '<div class="sc-mock">';
+      sc.rows.forEach(function(r) {
+        html += '<div class="sc-mock-row' + (r.flag ? ' flag' : '') + '"><span class="sc-mock-label">' + r.label + '</span><span class="sc-mock-val">' + r.val + '</span></div>';
+      });
+      html += '</div>';
+      html += '<div class="sc-question">' + sc.question + '</div>';
+      html += '<div class="sc-btns"><button class="sc-btn" data-a="yes">Yes, correct</button><button class="sc-btn" data-a="no">No, wrong</button></div>';
+      html += '<div class="sc-fb" id="sc-fb-' + si + '"></div>';
+      root.innerHTML = html;
+      var answered = false;
+      root.querySelectorAll('.sc-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (answered) return;
+          answered = true;
+          var chosen = btn.dataset.a;
+          var isRight = chosen === sc.correctAnswer;
+          root.querySelectorAll('.sc-btn').forEach(function(b) {
+            b.disabled = true;
+            if (b.dataset.a === sc.correctAnswer) b.classList.add('correct-pick');
+            else if (b === btn) b.classList.add('wrong-pick');
+          });
+          var fb = document.getElementById('sc-fb-' + si);
+          fb.className = 'sc-fb show ' + (isRight ? 'good' : 'bad');
+          fb.innerHTML = (isRight ? '\u2705 Correct. ' : '\u274C Not quite. ') + sc.explanation;
+        });
+      });
+    })();
+  }
+  if (sec.type === 'order-game') {
+    (function() {
+      var root = document.getElementById('og-root-' + si);
+      var correctOrder = sec.items.slice();
+      var pool = [];
+      var slots = new Array(correctOrder.length).fill(null);
+
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+        return a;
+      }
+
+      function render() {
+        pool = shuffle(correctOrder);
+        slots = new Array(correctOrder.length).fill(null);
+        draw();
+      }
+
+      function draw() {
+        var html = '<div class="og-slots">';
+        slots.forEach(function(val, i) {
+          if (val) {
+            html += '<div class="og-slot filled"><div class="og-slot-num">' + (i + 1) + '</div><div class="og-slot-text">' + val + '</div></div>';
+          } else {
+            html += '<div class="og-slot"><div class="og-slot-num">' + (i + 1) + '</div><div class="og-slot-placeholder">Click a step below to place it here</div></div>';
+          }
+        });
+        html += '</div>';
+        html += '<div class="og-pool">';
+        pool.forEach(function(item, i) {
+          var isUsed = slots.indexOf(item) !== -1;
+          html += '<button class="og-chip' + (isUsed ? ' used' : '') + '" data-item="' + i + '">' + item + '</button>';
+        });
+        html += '</div>';
+        html += '<div class="og-result" id="og-result-' + si + '"></div>';
+        html += '<button class="og-reset-btn" id="og-reset-' + si + '">Shuffle & try again</button>';
+        root.innerHTML = html;
+
+        root.querySelectorAll('.og-chip:not(.used)').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var item = pool[parseInt(btn.dataset.item, 10)];
+            var nextEmpty = slots.indexOf(null);
+            if (nextEmpty === -1) return;
+            slots[nextEmpty] = item;
+            draw();
+            if (slots.indexOf(null) === -1) checkResult();
+          });
+        });
+        var resetBtn = document.getElementById('og-reset-' + si);
+        if (resetBtn) resetBtn.onclick = function() { render(); };
+      }
+
+      function checkResult() {
+        var allCorrect = true;
+        var slotEls = root.querySelectorAll('.og-slot');
+        slots.forEach(function(val, i) {
+          var isRight = val === correctOrder[i];
+          if (!isRight) allCorrect = false;
+          slotEls[i].classList.add(isRight ? 'correct' : 'wrong');
+        });
+        var result = document.getElementById('og-result-' + si);
+        result.className = 'og-result show ' + (allCorrect ? 'good' : 'bad');
+        result.innerHTML = allCorrect
+          ? '\u2705 Spot on \u2014 that\'s the correct order, start to finish.'
+          : '\uD83D\uDCA1 Not quite the right order \u2014 correct steps are marked green, out-of-place ones in red. Give it another go.';
+        document.getElementById('og-reset-' + si).classList.add('show');
+      }
+
+      render();
+    })();
+  }
+  if (sec.type === 'gate-sim') {
+    (function() {
+      var root = document.getElementById('gate-root-' + si);
+      var gs = sec.data;
+      var checks = gs.checks.map(function() { return false; });
+      function draw() {
+        var html = '<div class="gate-title">' + gs.title + '</div>';
+        gs.checks.forEach(function(c, i) {
+          html += '<div class="gate-check-row' + (checks[i] ? ' checked' : '') + '" data-i="' + i + '"><div class="gate-checkbox">\u2713</div><div class="gate-check-text">' + c + '</div></div>';
+        });
+        var allChecked = checks.every(function(c) { return c; });
+        html += '<div class="gate-btn-row">';
+        html += '<button class="gate-send-btn' + (allChecked ? ' enabled' : '') + '" id="gate-send-' + si + '"' + (allChecked ? '' : ' disabled') + '>' + gs.buttonLabel + '</button>';
+        html += '<div class="gate-status' + (allChecked ? ' ready' : '') + '">' + (allChecked ? gs.readyText : gs.notReadyText) + '</div>';
+        html += '</div>';
+        html += '<div class="gate-success" id="gate-success-' + si + '">' + gs.successText + '</div>';
+        root.innerHTML = html;
+        root.querySelectorAll('.gate-check-row').forEach(function(row) {
+          row.addEventListener('click', function() {
+            var i = parseInt(row.dataset.i, 10);
+            checks[i] = !checks[i];
+            draw();
+          });
+        });
+        var sendBtn = document.getElementById('gate-send-' + si);
+        if (sendBtn && allChecked) {
+          sendBtn.addEventListener('click', function() {
+            document.getElementById('gate-success-' + si).classList.add('show');
+          });
+        }
+      }
+      draw();
+    })();
+  }
+});
+
+function toggleStepDetail(si, i, row) {
+  var container = row.parentElement;
+  container.querySelectorAll('.step').forEach(function(r){ r.classList.remove('done'); });
+  var wasOpen = document.getElementById('steps-' + si + '-detail-' + i).classList.contains('open');
+  container.querySelectorAll('.step-detail').forEach(function(d){ d.classList.remove('open'); });
+  if (!wasOpen) { row.classList.add('done'); document.getElementById('steps-' + si + '-detail-' + i).classList.add('open'); }
+}
+function toggleCardDetail(si, i, card) {
+  var container = card.parentElement;
+  var wasOpen = document.getElementById('cards-' + si + '-detail-' + i).classList.contains('open');
+  container.querySelectorAll('.card').forEach(function(c){ c.classList.remove('active'); });
+  container.querySelectorAll('.card-detail').forEach(function(d){ d.classList.remove('open'); });
+  if (!wasOpen) { card.classList.add('active'); document.getElementById('cards-' + si + '-detail-' + i).classList.add('open'); }
+}
+
+// ══════════ ROLEPLAY ENGINE (chat-bubble decision scenario) ══════════
+if (DATA.roleplay) {
+  (function() {
+    var rp = DATA.roleplay;
+    var n = rp.decisions.length;
+    var root = document.getElementById('rp-root');
+    var current = 0;
+    var chatHistory = [];
+
+    function renderCounter() {
+      var html = '<div class="rp-counter">';
+      for (var i = 0; i < n; i++) {
+        var cls = i < current ? 'done' : (i === current ? 'active' : '');
+        html += '<div class="rp-step ' + cls + '"></div>';
+      }
+      html += '<div class="rp-label">Decision ' + (current + 1) + ' of ' + n + '</div></div>';
+      return html;
+    }
+
+    function renderScreen() {
+      var d = rp.decisions[current];
+      var html = '<div class="rp-card">';
+      html += renderCounter();
+      html += '<div class="rp-chat" id="rp-chat-log">';
+      chatHistory.forEach(function(turn) {
+        html += '<div class="rp-bubble-wrap"><div class="rp-avatar cust">C</div><div><div class="rp-bubble customer"><div class="rp-bubble-name">CUSTOMER</div>' + turn.customer + '</div></div></div>';
+        html += '<div class="rp-bubble-wrap you"><div class="rp-avatar you">Y</div><div><div class="rp-bubble you ' + (turn.good ? '' : 'bad') + '"><div class="rp-bubble-name">YOU</div>' + turn.you + '</div></div></div>';
+      });
+      html += '<div class="rp-bubble-wrap"><div class="rp-avatar cust">C</div><div><div class="rp-bubble customer"><div class="rp-bubble-name">CUSTOMER</div>' + d.customerLine + '</div></div></div>';
+      html += '</div>';
+      html += '<div class="rp-options-label">' + d.prompt + '</div>';
+      html += '<div class="rp-options" id="rp-opts">';
+      d.options.forEach(function(o, i) {
+        html += '<button class="rp-opt" data-i="' + i + '"><div class="rp-opt-letter">' + String.fromCharCode(65 + i) + '</div><div class="rp-opt-text">' + o.text + '</div></button>';
+      });
+      html += '</div>';
+      html += '<div class="rp-feedback" id="rp-fb"></div>';
+      html += '<button class="rp-retry-btn" id="rp-retry">\u2190 Try again</button>';
+      html += '<button class="rp-next-btn" id="rp-next">' + (current === n - 1 ? 'See results \u2192' : 'Next decision \u2192') + '</button>';
+      html += '</div>';
+      root.innerHTML = html;
+
+      var answeredThis = false;
+      root.querySelectorAll('.rp-opt').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (answeredThis) return;
+          answeredThis = true;
+          var idx = parseInt(btn.dataset.i, 10);
+          var chosen = d.options[idx];
+          root.querySelectorAll('.rp-opt').forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === idx) b.classList.add(chosen.good ? 'good' : 'bad');
+            else b.classList.add('dim');
+          });
+          var fb = document.getElementById('rp-fb');
+          fb.className = 'rp-feedback show ' + (chosen.good ? 'good' : 'bad');
+          fb.innerHTML = chosen.feedback;
+          if (chosen.good) {
+            chatHistory.push({ customer: d.customerLine, you: chosen.text, good: true });
+            document.getElementById('rp-next').classList.add('show');
+          } else {
+            document.getElementById('rp-retry').classList.add('show');
+          }
+        });
+      });
+      var retryBtn = document.getElementById('rp-retry');
+      retryBtn.onclick = function() { renderScreen(); };
+      var nextBtn = document.getElementById('rp-next');
+      nextBtn.onclick = function() {
+        current++;
+        if (current >= n) {
+          root.style.display = 'none';
+          document.getElementById('rp-success').classList.add('show');
+          document.getElementById('rp-success').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          renderScreen();
+          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+    }
+    renderScreen();
+  })();
+}
+
+// ══════════ INTERACTIVE WIDGET: Loan Amount Slider ══════════
+function updateLoanSlider(val) {
+  val = parseInt(val, 10);
+  document.getElementById('loan-amount-val').textContent = '$' + val.toLocaleString();
+  var partners = [
+    { name: 'Parker Lane', icon: '\uD83C\uDFE6', fits: val <= 40000, warn: false,
+      note: val <= 40000 ? 'Handles this size, but expect a slower approval \u2014 weeks, sometimes a month.' : 'This exceeds Parker Lane\u2019s usual ceiling of about $40,000.' },
+    { name: 'Brighte', icon: '\u26A1', fits: true, warn: val > 15000,
+      note: val <= 15000 ? '0% interest, no merchant fee \u2014 fast approval, discount allowed.' : 'Available via the standard product \u2014 merchant fee applies, no discount.' },
+    { name: 'Plenti', icon: '\u2600\uFE0F', fits: val <= 15000, warn: false,
+      note: val <= 15000 ? 'Home Energy Saver Loan \u2014 no merchant fee, discount allowed (income cap still applies).' : 'Over the $15,000 cap \u2014 Plenti won\u2019t fit this amount.' },
+    { name: 'Lucent', icon: '\uD83D\uDCAC', fits: val <= 30000, warn: false,
+      note: val <= 30000 ? 'Personal loan option \u2014 lower volume, communicated via WhatsApp.' : 'Not typically used for amounts this large.' },
+  ];
+  var wrap = document.getElementById('viz-partners');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  partners.forEach(function(p) {
+    var div = document.createElement('div');
+    div.className = 'viz-partner' + (p.fits ? ' fits' : '') + (p.warn ? ' warn' : '');
+    div.innerHTML = '<div class="viz-partner-icon">' + p.icon + '</div><div><div class="viz-partner-name">' + p.name + '</div><div class="viz-partner-note">' + p.note + '</div></div><div class="viz-partner-status">' + (p.fits ? (p.warn ? '\u26A0\uFE0F' : '\u2705') : '\u274C') + '</div>';
+    wrap.appendChild(div);
+  });
+}
+
+// ══════════ INTERACTIVE WIDGET: Discount Calculator ══════════
+var calcProduct = 'interest-free';
+function selectCalcToggle(id) { calcProduct = id; renderCalcToggles(); updateCalc(); }
+function renderCalcToggles() {
+  var wrap = document.getElementById('calc-toggles');
+  if (!wrap) return;
+  var toggles = [
+    { id: 'interest-free', label: 'Brighte / Plenti \u2014 Interest-Free' },
+    { id: 'standard', label: 'Brighte \u2014 Standard' },
+  ];
+  wrap.innerHTML = '';
+  toggles.forEach(function(t) {
+    var btn = document.createElement('button');
+    btn.className = 'calc-toggle' + (calcProduct === t.id ? ' active' : '');
+    btn.textContent = t.label;
+    btn.onclick = function(){ selectCalcToggle(t.id); };
+    wrap.appendChild(btn);
+  });
+}
+function updateCalc() {
+  var slider = document.getElementById('calc-slider');
+  if (!slider) return;
+  var val = parseInt(slider.value, 10);
+  document.getElementById('calc-amount-val').textContent = '$' + val.toLocaleString();
+  var fillPct = Math.min(100, val / 45000 * 100);
+  var noFee = (calcProduct === 'interest-free') && val <= 15000;
+  var fill = document.getElementById('calc-cap-fill');
+  fill.style.width = fillPct + '%';
+  fill.style.background = noFee ? 'var(--green)' : 'var(--red)';
+  var verdict = document.getElementById('calc-verdict');
+  var icon = document.getElementById('calc-verdict-icon');
+  var title = document.getElementById('calc-verdict-title');
+  var sub = document.getElementById('calc-verdict-sub');
+  if (noFee) {
+    verdict.className = 'calc-verdict ok';
+    icon.textContent = '\u2705';
+    title.textContent = 'Discount allowed';
+    sub.textContent = 'No merchant fee on this product at this amount \u2014 a discount is fine.';
+  } else {
+    verdict.className = 'calc-verdict no';
+    icon.textContent = '\uD83D\uDEAB';
+    title.textContent = 'No discount \u2014 merchant fee applies';
+    sub.textContent = calcProduct === 'standard' ? 'Standard Brighte always carries a merchant fee \u2014 never discount on top of it.' : 'This amount is over the $15,000 interest-free cap, so the merchant fee kicks in.';
+  }
+}
+
+// ══════════ INTERACTIVE WIDGET: Collections Timeline ══════════
+function updateTimeline(day) {
+  day = parseInt(day, 10);
+  var lbl = document.getElementById('tl-day-label');
+  if (!lbl) return;
+  lbl.textContent = 'Day ' + day;
+  var status, activeIcons;
+  if (day <= 1) { status = 'Invoice just sent \u2014 give it a moment before following up.'; activeIcons = ['invoice']; }
+  else if (day <= 8) { status = '<strong>Day 2 checkpoint.</strong> Send an SMS and email reminder, and check the finance company\u2019s portal.'; activeIcons = ['invoice','sms']; }
+  else if (day <= 15) { status = '<strong>+1 week, still nothing.</strong> Time to call \u2014 always paired with a follow-up SMS and email.'; activeIcons = ['invoice','sms','call']; }
+  else { status = '<strong>Still unresponsive everywhere.</strong> Escalate directly to the finance company to help reach the customer.'; activeIcons = ['invoice','sms','call','escalate']; }
+  document.getElementById('tl-status').innerHTML = status;
+  ['invoice','sms','call','escalate'].forEach(function(k){
+    document.getElementById('tl-icon-' + k).classList.toggle('active', activeIcons.indexOf(k) >= 0);
+  });
+}
+
+// ══════════ INTERACTIVE WIDGET: Retention vs Lost Simulator ══════════
+var simState = { cancelled: false, responded: true };
+function setSim(key, val) { simState[key] = val; renderSimToggles(); updateSimVerdict(); }
+function renderSimToggles() {
+  var wrap = document.getElementById('sim-toggles');
+  if (!wrap) return;
+  var toggles = [
+    { key: 'cancelled', label: 'Customer explicitly cancelled or refused?', options: [['no','No'],['yes','Yes']] },
+    { key: 'responded', label: 'Has the customer responded at all recently?', options: [['yes','Yes'],['no','No']] },
+  ];
+  wrap.innerHTML = '';
+  toggles.forEach(function(t) {
+    var row = document.createElement('div'); row.className = 'sim-toggle-row';
+    var switchDiv = document.createElement('div'); switchDiv.className = 'sim-switch';
+    t.options.forEach(function(opt) {
+      var btn = document.createElement('button');
+      var curVal = simState[t.key];
+      var isActive = (curVal === (opt[0] === 'yes'));
+      btn.className = isActive ? 'active' : '';
+      btn.textContent = opt[1];
+      btn.onclick = function(){ setSim(t.key, opt[0] === 'yes'); };
+      switchDiv.appendChild(btn);
+    });
+    row.innerHTML = '<div class="sim-toggle-label">' + t.label + '</div>';
+    row.appendChild(switchDiv);
+    wrap.appendChild(row);
+  });
+}
+function updateSimVerdict() {
+  var verdict = document.getElementById('sim-verdict');
+  if (!verdict) return;
+  var title = document.getElementById('sim-verdict-title');
+  var sub = document.getElementById('sim-verdict-sub');
+  if (simState.cancelled) {
+    verdict.className = 'sim-verdict lost';
+    title.textContent = 'Lost';
+    sub.textContent = 'An explicit cancellation or refusal means there\u2019s no realistic chance left \u2014 move it to Lost.';
+  } else if (simState.responded) {
+    verdict.className = 'sim-verdict retention';
+    title.textContent = 'Retention';
+    sub.textContent = 'A realistic chance remains \u2014 keep it in Retention and let the sales rep follow up.';
+  } else {
+    verdict.className = 'sim-verdict retention';
+    title.textContent = 'Retention (for now)';
+    sub.textContent = 'No response yet isn\u2019t the same as a confirmed no. Default to Retention \u2014 but contact the customer yourself first.';
+  }
+}
+
+// Initialise any widgets present on this page (harmless no-ops otherwise)
+if (document.getElementById('loan-slider')) updateLoanSlider(15000);
+if (document.getElementById('calc-slider')) { renderCalcToggles(); updateCalc(); }
+if (document.getElementById('tl-slider')) updateTimeline(0);
+if (document.getElementById('sim-toggles')) { renderSimToggles(); updateSimVerdict(); }
+
+var qEl = document.getElementById('quiz-questions');
+var answered = {};
+var score = 0;
+var total = DATA.quiz.length;
+
+function renderQuestions() {
+  qEl.innerHTML = '';
+  DATA.quiz.forEach(function(q, qi) {
+    var qid = 'q' + qi;
+    var div = document.createElement('div'); div.className = 'q'; div.id = qid;
+    var html = '<div class="q-text">' + q.q + '</div>';
+    q.opts.forEach(function(o, oi) {
+      html += '<button class="opt" data-qi="' + qi + '" data-oi="' + oi + '">' + o.text + '</button>';
+    });
+    html += '<div class="fb" id="' + qid + '-fb"></div>';
+    div.innerHTML = html;
+    qEl.appendChild(div);
+  });
+}
+renderQuestions();
+
+qEl.addEventListener('click', function(e) {
+  var btn = e.target.closest('.opt');
+  if (!btn) return;
+  var qi = parseInt(btn.dataset.qi, 10);
+  var oi = parseInt(btn.dataset.oi, 10);
+  var qid = 'q' + qi;
+  if (answered[qid]) return;
+  answered[qid] = true;
+  var q = DATA.quiz[qi];
+  var correctIdx = q.opts.findIndex(function(o){ return o.correct; });
+  var opts = document.querySelectorAll('#' + qid + ' .opt');
+  opts.forEach(function(o){ o.disabled = true; });
+  opts[correctIdx].classList.add('correct');
+  var isCorrect = (oi === correctIdx);
+  if (!isCorrect) opts[oi].classList.add('wrong');
+  if (isCorrect) score++;
+  var fb = document.getElementById(qid + '-fb');
+  var chosen = q.opts[oi];
+  fb.textContent = (isCorrect ? 'Correct. ' : 'Not quite \u2014 correct answer highlighted above. ') + (chosen.feedback || q.opts[correctIdx].feedback || '');
+  fb.className = 'fb show ' + (isCorrect ? 'ok' : 'bad');
+  if (Object.keys(answered).length === total) {
+    var banner = document.getElementById('score-banner');
+    var val = document.getElementById('score-val');
+    var sub = document.getElementById('score-sub');
+    var restartBtn = document.getElementById('restart-btn');
+    val.textContent = score + ' / ' + total;
+    if (score / total >= 0.8) {
+      sub.textContent = 'Pass \u2014 well done.';
+      banner.style.background = '#ECFDF5'; val.style.color = '#065F46'; sub.style.color = '#166534';
+    } else {
+      sub.textContent = 'Below pass mark \u2014 review this module and try again.';
+      banner.style.background = '#FEF2F2'; val.style.color = '#991B1B'; sub.style.color = '#7F1D1D';
+    }
+    banner.classList.add('show');
+    restartBtn.style.display = 'inline-block';
+  }
+});
+
+document.getElementById('restart-btn').addEventListener('click', function() {
+  answered = {};
+  score = 0;
+  var banner = document.getElementById('score-banner');
+  banner.classList.remove('show');
+  document.getElementById('restart-btn').style.display = 'none';
+  renderQuestions();
+  qEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+</script>
+</body>
+</html>
